@@ -1,2 +1,2 @@
-# springcloud--template
+# springcloud-template
 SpringCloud 模板
