@@ -1,0 +1,23 @@
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 0
+      location: #
+      max-request-size: 256MB
+      max-file-size: 256MB
+      resolve-lazily: false
+
+
+
+zuul.routes.bigScreen.path: /bigScreen/**   #这里是映射路径
+zuul.routes.bigScreen.service-id: irisking-big-screen-service   #指定服务名称
+zuul.routes.bigScreen.stripPrefix: false   #不添加路由前缀===========
+
+helios:
+  releaseMethods: /dataManagement/offlineDataUpload,/systemMonitor/importLogs,/Api/iris/regIris,/Api/iris/irisInspection,/Api/iris/irisCheck,/common/desEncrypt,/common/desDecode,/Api/iris/regIris/,/Api/iris/irisInspection/,/Api/iris/irisCheck/,/collection/gather/checkDevice,/collection/gather/getDriveVersion,/SysManage/DriveManage/getNewDrive,/Api/gdjz/reg,/Api/gdjz/getCodeList,/Api/personApi/getPersonInfo,/common/editSdkIp,/Api/iris/irisLinkage/,/Api/iris/irisLinkage,/Api/iris/sync,/Api/iris/sync/,/Api/iris/identifyByCjsbbh,/Api/iris/identifyByCjsbbh/,/collection/gather/getCodeList,/SysManage/DriveManage/queryDrivesByManufacturer,/SysManage/DriveManage/queryMicroServiceInfo,/SysManage/DriveManage/getNewDrive,/dataQuery/checkList,/Api/xiamen/irisRegister
+
+loginToken:
+  timeout: 3600
+  prefix: LoginToken_
+  whiteList: 666666

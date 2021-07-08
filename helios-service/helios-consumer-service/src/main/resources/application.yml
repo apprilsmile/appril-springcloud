@@ -1,0 +1,38 @@
+server:
+  port: 8091
+  servlet:
+    context-path: /
+  ssl:
+    enabled: false
+
+eureka:
+  instance:
+    prefer-ip-address: true #注册服务的ip
+    leaseRenewalIntervalInSeconds: 5 #心跳间隔时间,默认是30秒
+    leaseExpirationDurationInSeconds: 10 #最后一次心跳时间后leaseExpirationDurationInSeconds秒就认为是下线了，默认是90秒
+  client:
+    registryFetchIntervalSeconds: 5 # 定时刷新本地缓存时间
+    register-with-eureka: true #使用Eureka注册服务
+    fetch-registry: true #在本地缓存注册表
+
+spring:
+  application:
+    name: helios-consumer-service
+  cloud:
+    config:
+     # uri: http://localhost:8088/
+      discovery:
+        enabled: true
+        serviceId: config-server
+     # profile: test
+      profile: dev
+      fail-fast: true
+      retry:
+        multiplier: 1000
+        max-attempts: 10
+
+
+
+feign:
+  hystrix:
+    enabled: true
