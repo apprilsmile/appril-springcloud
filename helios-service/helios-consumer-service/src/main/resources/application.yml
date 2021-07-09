@@ -1,9 +1,5 @@
 server:
-  port: 8091
-  servlet:
-    context-path: /
-  ssl:
-    enabled: false
+  port: 8093
 
 eureka:
   instance:
@@ -14,22 +10,24 @@ eureka:
     registryFetchIntervalSeconds: 5 # 定时刷新本地缓存时间
     register-with-eureka: true #使用Eureka注册服务
     fetch-registry: true #在本地缓存注册表
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka #Eureka服务位置
 
 spring:
   application:
     name: helios-consumer-service
-  cloud:
-    config:
-     # uri: http://localhost:8088/
-      discovery:
-        enabled: true
-        serviceId: config-server
-     # profile: test
-      profile: dev
-      fail-fast: true
-      retry:
-        multiplier: 1000
-        max-attempts: 10
+#  cloud:
+#    config:
+#     # uri: http://localhost:8088/
+#      discovery:
+#        enabled: true
+#        serviceId: config-server
+#     # profile: test
+#      profile: dev
+#      fail-fast: true
+#      retry:
+#        multiplier: 1000
+#        max-attempts: 10
 
 
 

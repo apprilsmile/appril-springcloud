@@ -1,38 +1,32 @@
 package com.appril.helios.controller;
 
 
-import com.alibaba.fastjson.JSON;
 import com.appril.helios.domain.ApiRequest;
 import com.appril.helios.domain.ApiResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.appril.helios.invoke.BaseServiceInvoke;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import javax.annotation.Resource;
 import java.util.Map;
 
 
 @RestController
-@RequestMapping("/base")
-@CrossOrigin(allowCredentials = "true", allowedHeaders = "*", methods = {RequestMethod.GET,
-        RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS,
-        RequestMethod.HEAD, RequestMethod.PUT, RequestMethod.PATCH}, origins = "*")
+@RequestMapping("/consumer")
 public class ConsumerTestController {
 
-    Logger logger = LoggerFactory.getLogger(ConsumerTestController.class);
+    @Resource
+    private BaseServiceInvoke baseServiceInvoke;
 
     @GetMapping("/test")
     @ResponseBody
-    public ApiResult<?> test(@RequestBody ApiRequest apiRequest) {
-        logger.info("base/test 请求：" + JSON.toJSONString(apiRequest));
-        Map<String,Object> data = new HashMap<>();
-        data.put("name","李白");
-        data.put("phone","13674689562");
-        data.put("dynasty","Tang");
-        return ApiResult.isOk("111111","查询成功！",data);
+    public ApiResult<Map<String,Object>> test(@RequestBody ApiRequest apiRequest) {
+        System.out.println("进入 consumer/test 方法");
+        return baseServiceInvoke.test(apiRequest);
     }
 
-
-
-
+    @GetMapping("/testStr")
+    String testStr(@RequestParam(name = "str") String str){
+        System.out.println("进入 consumer/testStr 请求");
+        return baseServiceInvoke.testStr(str);
+    }
 }

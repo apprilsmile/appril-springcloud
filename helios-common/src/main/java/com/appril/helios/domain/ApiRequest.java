@@ -2,14 +2,19 @@ package com.appril.helios.domain;
 
 import com.alibaba.fastjson.TypeReference;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 @Data
 @Accessors(chain = true)
-public class ApiRequest {
+@NoArgsConstructor
+public class ApiRequest implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     public static final TypeReference<Map<String, Object>> MapType = new TypeReference<Map<String, Object>>() {
     };

@@ -13,32 +13,31 @@ import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
 /**
  * Feign 调用
+ *
+ *  spring cloud feign不支持@RequestBody+ RequestMethod.GET，报错
  */
 @FeignClient(name = "HELIOS-BASE-SERVICE", configuration = BaseServiceInvoke.MultipartSupportConfig.class, fallback = BaseServiceFallback.class)
-@Primary
 public interface BaseServiceInvoke {
 
-    @GetMapping("/base/test")
+    @PostMapping("/base/test")
     ApiResult<Map<String,Object>> test(@RequestBody ApiRequest apiRequest);
+
+    @GetMapping("/base/testStr")
+    String testStr(@RequestParam(name = "str") String str);
+
 
     @Configuration
     class MultipartSupportConfig {
         @Bean
         public Encoder multipartFormEncoder() {
-            return new SpringFormEncoder(new SpringEncoder(new ObjectFactory<HttpMessageConverters>() {
-                @Override
-                public HttpMessageConverters getObject() throws BeansException {
-                    return new HttpMessageConverters(new RestTemplate().getMessageConverters());
-                }
-            }));
+            return new SpringFormEncoder(new SpringEncoder(() -> new HttpMessageConverters(new RestTemplate().getMessageConverters())));
         }
     }
 }

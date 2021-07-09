@@ -4,7 +4,9 @@ import com.appril.helios.domain.ApiRequest;
 import com.appril.helios.domain.ApiResult;
 import com.appril.helios.invoke.BaseServiceInvoke;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -14,6 +16,15 @@ import java.util.Map;
 public class BaseServiceFallback implements BaseServiceInvoke {
     @Override
     public ApiResult<Map<String, Object>> test(ApiRequest apiRequest) {
-        return null;
+        Map<String,Object> data = new HashMap<>();
+        data.put("name","苏轼");
+        data.put("phone","189564896");
+        data.put("dynasty","Song");
+        return ApiResult.isErrNoToken("查询失败！",data);
+    }
+
+    @Override
+    public String testStr(String str) {
+        return "good good study ,day day up !";
     }
 }
